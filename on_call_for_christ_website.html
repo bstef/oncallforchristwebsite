@@ -1,0 +1,465 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gospel Missions Ministry</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Georgia', serif;
+            line-height: 1.6;
+            color: #333;
+        }
+
+        header {
+            background: linear-gradient(rgba(44, 83, 100, 0.85), rgba(32, 58, 67, 0.95)), 
+                        url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 400"><defs><linearGradient id="sky" x1="0%" y1="0%" x2="0%" y2="100%"><stop offset="0%" style="stop-color:%232c5364;stop-opacity:1" /><stop offset="100%" style="stop-color:%23203a43;stop-opacity:1" /></linearGradient></defs><rect fill="url(%23sky)" width="1200" height="400"/><g opacity="0.3"><circle cx="200" cy="100" r="80" fill="%23fff"/><circle cx="800" cy="150" r="60" fill="%23fff"/><circle cx="400" cy="80" r="50" fill="%23fff"/><circle cx="1000" cy="120" r="70" fill="%23fff"/></g><path fill="%234a5f6b" d="M0,300 Q300,250 600,280 T1200,260 L1200,400 L0,400 Z"/><path fill="%23364854" d="M0,320 Q200,290 400,310 T800,300 Q1000,290 1200,310 L1200,400 L0,400 Z"/><path fill="%23f0a500" opacity="0.6" d="M500,120 L520,180 L580,180 L530,220 L550,280 L500,240 L450,280 L470,220 L420,180 L480,180 Z"/></g></svg>') center/cover;
+            color: white;
+            padding: 3rem 0;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            position: relative;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        .header-content {
+            text-align: center;
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+            font-weight: 300;
+            letter-spacing: 1px;
+        }
+
+        .tagline {
+            font-size: 1.1rem;
+            opacity: 0.9;
+            font-style: italic;
+        }
+
+        nav {
+            background: #203a43;
+            padding: 1rem 0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+
+        nav ul {
+            list-style: none;
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 2rem;
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+            font-size: 1.1rem;
+            transition: color 0.3s;
+        }
+
+        nav a:hover {
+            color: #f0a500;
+        }
+
+        .hero {
+            background: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)), 
+                        url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 600"><rect fill="%23456" width="1200" height="600"/><path fill="%23567" d="M0 300L50 320L100 310L150 330L200 320L250 340L300 330L350 350L400 340L450 360L500 350L550 370L600 360L650 380L700 370L750 390L800 380L850 400L900 390L950 410L1000 400L1050 420L1100 410L1150 430L1200 420V600H0Z"/></svg>') center/cover;
+            color: white;
+            padding: 6rem 0;
+            text-align: center;
+        }
+
+        .hero h2 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            font-weight: 400;
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            max-width: 800px;
+            margin: 0 auto;
+            line-height: 1.8;
+        }
+
+        section {
+            padding: 4rem 0;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 2.2rem;
+            margin-bottom: 3rem;
+            color: #2c5364;
+            font-weight: 400;
+        }
+
+        .mission-statement {
+            background: #f8f9fa;
+        }
+
+        .mission-text {
+            max-width: 900px;
+            margin: 0 auto;
+            font-size: 1.1rem;
+            line-height: 1.9;
+            text-align: justify;
+        }
+
+        .mission-text p {
+            margin-bottom: 1.5rem;
+        }
+
+        .missions-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(500px, 1fr));
+            gap: 3rem;
+            margin-top: 2rem;
+        }
+
+        .mission-card {
+            background: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .mission-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 6px 20px rgba(0,0,0,0.15);
+        }
+
+        .mission-image {
+            width: 100%;
+            height: 250px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 4rem;
+            color: white;
+        }
+
+        .south-dakota-bg {
+            background: linear-gradient(135deg, #c94b4b 0%, #4b134f 100%);
+        }
+
+        .romania-bg {
+            background: linear-gradient(135deg, #fdc830 0%, #f37335 100%);
+        }
+
+        .mission-content {
+            padding: 2rem;
+        }
+
+        .mission-content h3 {
+            font-size: 1.8rem;
+            margin-bottom: 1rem;
+            color: #2c5364;
+        }
+
+        .mission-content p {
+            margin-bottom: 1rem;
+            line-height: 1.8;
+        }
+
+        .btn {
+            display: inline-block;
+            background: #2c5364;
+            color: white;
+            padding: 0.8rem 2rem;
+            text-decoration: none;
+            border-radius: 4px;
+            transition: background 0.3s;
+            margin-top: 1rem;
+        }
+
+        .btn:hover {
+            background: #1e3a47;
+        }
+
+        .detail-section {
+            display: none;
+            background: #f8f9fa;
+        }
+
+        .detail-section.active {
+            display: block;
+        }
+
+        .detail-content {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .detail-content h4 {
+            font-size: 1.5rem;
+            color: #2c5364;
+            margin: 2rem 0 1rem 0;
+        }
+
+        .detail-content p, .detail-content ul {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            margin-bottom: 1rem;
+        }
+
+        .detail-content ul {
+            margin-left: 2rem;
+        }
+
+        .detail-content li {
+            margin-bottom: 0.5rem;
+        }
+
+        .get-involved {
+            background: linear-gradient(135deg, #2c5364 0%, #203a43 100%);
+            color: white;
+            text-align: center;
+        }
+
+        .get-involved .section-title {
+            color: white;
+        }
+
+        .involvement-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .involvement-card {
+            background: rgba(255,255,255,0.1);
+            padding: 2rem;
+            border-radius: 8px;
+            backdrop-filter: blur(10px);
+        }
+
+        .involvement-card h4 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+        }
+
+        footer {
+            background: #1a2a33;
+            color: white;
+            text-align: center;
+            padding: 2rem 0;
+        }
+
+        @media (max-width: 768px) {
+            .missions-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            h1 {
+                font-size: 2rem;
+            }
+            
+            .hero h2 {
+                font-size: 1.8rem;
+            }
+            
+            nav ul {
+                gap: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div class="header-content">
+                <h1>On Call For Christ</h1>
+                <p class="tagline">Ambassadors for Christ, Sharing His Love Around the World</p>
+            </div>
+        </div>
+    </header>
+
+    <nav>
+        <ul>
+            <li><a href="#home" onclick="showSection('home')">Home</a></li>
+            <li><a href="#mission" onclick="showSection('mission')">Our Mission</a></li>
+            <li><a href="#fields" onclick="showSection('fields')">Mission Fields</a></li>
+            <li><a href="#south-dakota" onclick="showSection('south-dakota')">South Dakota</a></li>
+            <li><a href="#romania" onclick="showSection('romania')">Romania</a></li>
+            <li><a href="#involved" onclick="showSection('involved')">Get Involved</a></li>
+        </ul>
+    </nav>
+
+    <div class="hero" id="home">
+        <div class="container">
+            <h2>United to Share the Gospel</h2>
+            <p>By the Lord's grace, we seek to be ambassadors for Christ, calling people to repentance and faith in Him across cultures and communities.</p>
+        </div>
+    </div>
+
+    <section class="mission-statement" id="mission">
+        <div class="container">
+            <h2 class="section-title">Our Mission</h2>
+            <div class="mission-text">
+                <p>United to share the Gospel with the lost, to disciple followers of Christ, and to train believers in living a Gospel-centered life.</p>
+                
+                <p>By the Lord's grace, we seek to sustain a committed presence on the Rosebud Indian Reservation, to continue to develop our relationships with the youth of Okreek and Parmelee communities, and to reach out to their families with the Gospel. Our intention is to be ambassadors for Christ, calling people to repentance and faith in Him, and to see them incorporated into a fellowship of believers.</p>
+                
+                <p>We are also committed to training the members of our team in Gospel-focused ministry, equipping them for service and enabling them to use their gifts for the glory of God and the furtherance of His Kingdom.</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="fields">
+        <div class="container">
+            <h2 class="section-title">Our Mission Fields</h2>
+            <div class="missions-grid">
+                <div class="mission-card">
+                    <div class="mission-image south-dakota-bg">🏔️</div>
+                    <div class="mission-content">
+                        <h3>South Dakota Native American Ministry</h3>
+                        <p>Serving the Lakota people on the Rosebud Indian Reservation, we maintain a committed presence in the Okreek and Parmelee communities, building relationships with youth and families while sharing the transformative message of Christ.</p>
+                        <a href="#south-dakota" onclick="showSection('south-dakota')" class="btn">Learn More</a>
+                    </div>
+                </div>
+
+                <div class="mission-card">
+                    <div class="mission-image romania-bg">⛪</div>
+                    <div class="mission-content">
+                        <h3>Romania Ministry</h3>
+                        <p>Partnering with local believers in Romania to spread the Gospel, disciple new Christians, and support the growth of vibrant, Christ-centered communities throughout the region.</p>
+                        <a href="#romania" onclick="showSection('romania')" class="btn">Learn More</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="detail-section" id="south-dakota">
+        <div class="container">
+            <h2 class="section-title">South Dakota Native American Ministry</h2>
+            <div class="detail-content">
+                <h4>The Rosebud Indian Reservation</h4>
+                <p>The Rosebud Indian Reservation is home to the Sicangu Lakota (Burnt Thigh) people, located in south-central South Dakota. This reservation faces significant challenges including poverty, substance abuse, and limited economic opportunities, yet it is also a place of rich cultural heritage and resilient people.</p>
+
+                <h4>Our Presence in Okreek and Parmelee</h4>
+                <p>We have established a sustained ministry presence in the communities of Okreek and Parmelee, two small towns on the reservation. Our focus is on building genuine, long-term relationships with the youth and their families, demonstrating the love of Christ through consistent presence and authentic care.</p>
+
+                <h4>Ministry Focus Areas</h4>
+                <p>Our work in South Dakota encompasses several key areas:</p>
+                <ul>
+                    <li>Youth ministry programs that provide mentorship, discipleship, and positive activities</li>
+                    <li>Family outreach that brings the Gospel message to entire households</li>
+                    <li>Community development initiatives that address both spiritual and practical needs</li>
+                    <li>Cultural sensitivity training for our team members to serve with respect and understanding</li>
+                    <li>Partnership with local believers to establish sustainable, indigenous-led fellowships</li>
+                </ul>
+
+                <h4>The Need</h4>
+                <p>The spiritual need on the Rosebud Reservation is profound. Many young people are searching for hope, purpose, and identity. Our calling is to introduce them to Jesus Christ, who offers abundant life, and to see them grow as His disciples within the context of their own community and culture.</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="detail-section" id="romania">
+        <div class="container">
+            <h2 class="section-title">Romania Ministry</h2>
+            <div class="detail-content">
+                <h4>About Romania</h4>
+                <p>Romania is a nation in Southeast Europe with a rich Christian heritage dating back centuries. Following decades of communist rule that suppressed religious freedom, Romania has experienced a spiritual awakening with growing evangelical movements and a hunger for authentic biblical teaching.</p>
+
+                <h4>Our Ministry Approach</h4>
+                <p>Our work in Romania focuses on coming alongside local believers to strengthen and expand Gospel ministry throughout the country. We believe in empowering Romanian Christians to lead their own ministries while providing support, training, and partnership.</p>
+
+                <h4>Key Ministry Activities</h4>
+                <p>Our Romania ministry includes:</p>
+                <ul>
+                    <li>Evangelistic outreach in communities with limited Gospel witness</li>
+                    <li>Training seminars for pastors and church leaders in biblical teaching and discipleship</li>
+                    <li>Support for church planting efforts in both urban and rural areas</li>
+                    <li>Youth camps and programs that introduce young people to Christ</li>
+                    <li>Equipping believers for Gospel-centered living and effective witness</li>
+                    <li>Developing indigenous ministry leaders who can continue the work long-term</li>
+                </ul>
+
+                <h4>The Opportunity</h4>
+                <p>Romania represents a unique opportunity for Gospel ministry. The people are open to spiritual discussions, there is a growing hunger for biblical truth, and local believers are passionate about reaching their own nation. Our role is to encourage, equip, and partner with these dedicated Romanian Christians as they advance God's Kingdom.</p>
+
+                <h4>Cultural Context</h4>
+                <p>Understanding Romanian culture, history, and the legacy of communism is essential to effective ministry. We invest time in cultural learning and building deep relationships that allow for authentic Gospel sharing within the Romanian context.</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="get-involved" id="involved">
+        <div class="container">
+            <h2 class="section-title">Get Involved</h2>
+            <div class="involvement-grid">
+                <div class="involvement-card">
+                    <h4>Pray</h4>
+                    <p>Join our prayer team and intercede for our missionaries, the communities we serve, and the advancement of God's Kingdom in South Dakota and Romania.</p>
+                </div>
+                <div class="involvement-card">
+                    <h4>Give</h4>
+                    <p>Support our ministry financially, enabling us to maintain our presence, provide resources, and expand our Gospel outreach.</p>
+                </div>
+                <div class="involvement-card">
+                    <h4>Go</h4>
+                    <p>Join a short-term mission trip or consider long-term service. We provide training and preparation for all team members.</p>
+                </div>
+                <div class="involvement-card">
+                    <h4>Partner</h4>
+                    <p>Churches and organizations can partner with us through missions education, hosting missionaries, and mobilizing their congregations.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2026 Gospel Missions Ministry. All rights reserved.</p>
+            <p>United to share the Gospel, disciple believers, and glorify God.</p>
+        </div>
+    </footer>
+
+    <script>
+        function showSection(sectionId) {
+            // Hide all detail sections
+            const detailSections = document.querySelectorAll('.detail-section');
+            detailSections.forEach(section => {
+                section.classList.remove('active');
+            });
+
+            // Show main sections or specific detail section
+            if (sectionId === 'south-dakota' || sectionId === 'romania') {
+                const section = document.getElementById(sectionId);
+                if (section) {
+                    section.classList.add('active');
+                    section.scrollIntoView({ behavior: 'smooth' });
+                }
+            } else {
+                // Scroll to the section
+                const element = document.getElementById(sectionId);
+                if (element) {
+                    element.scrollIntoView({ behavior: 'smooth' });
+                }
+            }
+        }
+    </script>
+</body>
+</html>
