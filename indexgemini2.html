@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>On Call for Christ | Gospel Ministry</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@300;600&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;1,8..60,400&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --ro-blue: #002B7F;
+            --ro-yellow: #FCD116;
+            --ro-red: #CE1126;
+            --bg-deep: #080a0f;
+            --bg-panel: #12161f;
+            --text-gold: #f1e7d0;
+            --text-dim: #8892b0;
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg-deep);
+            color: var(--text-gold);
+            display: flex; /* Sidebar layout for desktop */
+            min-height: 100vh;
+        }
+
+        /* Side Navigation */
+        nav {
+            width: 280px;
+            background: var(--bg-panel);
+            height: 100vh;
+            position: fixed;
+            display: flex;
+            flex-direction: column;
+            padding: 3rem 2rem;
+            border-right: 1px solid rgba(255,255,255,0.05);
+            z-index: 1000;
+        }
+
+        .brand {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 2.2rem;
+            letter-spacing: 2px;
+            color: var(--ro-yellow);
+            line-height: 1;
+            margin-bottom: 3rem;
+            cursor: pointer;
+        }
+
+        .nav-links { list-style: none; flex-grow: 1; }
+        .nav-links li { margin-bottom: 1.5rem; }
+        .nav-links a {
+            text-decoration: none;
+            color: var(--text-dim);
+            font-weight: 600;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: 0.3s;
+            cursor: pointer;
+            display: block;
+        }
+        .nav-links a:hover { color: var(--ro-red); padding-left: 5px; }
+
+        /* Main Content Area */
+        main {
+            margin-left: 280px;
+            flex-grow: 1;
+            padding: 0;
+            width: calc(100% - 280px);
+        }
+
+        section {
+            display: none;
+            padding: 5rem 10%;
+            animation: slideUp 0.5s ease-out;
+        }
+        section.active { display: block; }
+
+        @keyframes slideUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Typography */
+        h1 { font-family: 'Bebas Neue', sans-serif; font-size: 5rem; line-height: 0.9; margin-bottom: 2rem; color: #fff; }
+        h2 { font-family: 'Bebas Neue', sans-serif; font-size: 3rem; color: var(--ro-yellow); margin-bottom: 2rem; }
+        
+        .mission-text {
+            font-family: 'Source Serif 4', serif;
+            font-size: 1.4rem;
+            line-height: 1.6;
+            color: #d1d1d1;
+            max-width: 800px;
+            border-left: 2px solid var(--ro-red);
+            padding-left: 2rem;
+        }
+
+        /* Feature Cards */
+        .feature-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2rem; margin-top: 4rem; }
+        .feature-card {
+            background: var(--bg-panel);
+            padding: 2.5rem;
+            border-bottom: 3px solid transparent;
+            transition: 0.3s;
+        }
+        .feature-card:hover { border-color: var(--ro-yellow); transform: translateY(-5px); }
+        .feature-card.sd:hover { border-color: var(--ro-red); }
+
+        /* Color Bars */
+        .decor-bar { height: 8px; width: 100px; display: flex; margin-bottom: 2rem; }
+        .bar-1 { background: var(--ro-blue); flex: 1; }
+        .bar-2 { background: var(--ro-yellow); flex: 1; }
+        .bar-3 { background: var(--ro-red); flex: 1; }
+
+        .donate-cta {
+            background: var(--ro-red);
+            color: white;
+            padding: 3rem;
+            text-align: center;
+            margin-top: 5rem;
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 2rem;
+            letter-spacing: 2px;
+            cursor: pointer;
+        }
+
+        /* Mobile Adjustments */
+        @media (max-width: 1024px) {
+            body { flex-direction: column; }
+            nav { width: 100%; height: auto; position: relative; padding: 2rem; }
+            main { margin-left: 0; width: 100%; }
+            h1 { font-size: 3rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <nav>
+        <div class="brand" onclick="showSection('home')">ON CALL<br>FOR CHRIST</div>
+        <ul class="nav-links">
+            <li><a onclick="showSection('home')">Introduction</a></li>
+            <li><a onclick="showSection('romania')">The Romania Heritage</a></li>
+            <li><a onclick="showSection('southdakota')">The Rosebud Presence</a></li>
+            <li><a onclick="showSection('involved')">Get Involved</a></li>
+        </ul>
+        <div style="font-size: 0.7rem; color: var(--text-dim); margin-top: auto;">
+            EST. 2026<br>ROMANIA & SOUTH DAKOTA
+        </div>
+    </nav>
+
+    <main>
+        <section id="home" class="active">
+            <div class="decor-bar">
+                <div class="bar-1"></div><div class="bar-2"></div><div class="bar-3"></div>
+            </div>
+            <h1>AMBASSADORS<br>FOR CHRIST</h1>
+            <p class="mission-text">
+                "United to share the Gospel with the lost, to disciple followers of Christ, and to train believers in living a Gospel-centered life. Our intention is to be ambassadors for Christ, calling people to repentance and faith in Him."
+            </p>
+            
+            <div class="feature-grid">
+                <div class="feature-card">
+                    <span style="color:var(--ro-yellow); font-weight: bold;">01. MISSION</span>
+                    <p style="margin-top:1rem; color: var(--text-dim);">Developing relationships with the youth of Okreek and Parmelee to reach their families with the Gospel.</p>
+                </div>
+                <div class="feature-card">
+                    <span style="color:var(--ro-red); font-weight: bold;">02. TRAINING</span>
+                    <p style="margin-top:1rem; color: var(--text-dim);">Equipping the team for service and enabling them to use their gifts for the glory of God.</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="romania">
+            <h2>THE ROMANIA HERITAGE</h2>
+            <p style="font-size: 1.2rem; max-width: 700px;">Our ministry is rooted in the training and discipline of Gospel-centered service found in Romania. Here, we equip our team to be sent into the world.</p>
+            <div class="feature-grid">
+                <div class="feature-card" style="border-top: 1px solid var(--ro-blue);">
+                    <h3>Preparation</h3>
+                    <p>Focusing on rigorous Gospel study and practical training to sustain a committed presence in cross-cultural fields.</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="southdakota">
+            <h2>THE ROSEBUD PRESENCE</h2>
+            <p style="font-size: 1.2rem; max-width: 700px;">Focusing on the communities of **Okreek** and **Parmelee**, we are building a foundation of faith on the Rosebud Indian Reservation.</p>
+            <div class="feature-grid">
+                <div class="feature-card sd">
+                    <h3>Okreek Outreach</h3>
+                    <p>Youth-focused ministry designed to provide a stable, Christ-centered presence in the community.</p>
+                </div>
+                <div class="feature-card sd">
+                    <h3>Parmelee Growth</h3>
+                    <p>Building deep relationships with families and incorporating them into a local fellowship of believers.</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="involved">
+            <h2>GET INVOLVED</h2>
+            <div class="feature-grid">
+                <div class="feature-card">
+                    <h3>PRAY</h3>
+                    <p>Receive regular updates to pray for the families of the Rosebud Reservation.</p>
+                </div>
+                <div class="feature-card">
+                    <h3>SERVE</h3>
+                    <p>Learn how to join our training program in Romania or serve in South Dakota.</p>
+                </div>
+            </div>
+            <div class="donate-cta" onclick="alert('Proceeding to secure giving portal...')">
+                SUPPORT THE MISSION &rarr;
+            </div>
+        </section>
+    </main>
+
+    <script>
+        function showSection(id) {
+            document.querySelectorAll('section').forEach(s => s.classList.remove('active'));
+            document.getElementById(id).classList.add('active');
+            window.scrollTo(0,0);
+        }
+    </script>
+</body>
+</html>
