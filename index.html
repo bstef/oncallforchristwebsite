@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>On Call for Christ Ministry</title>
+    <title>Gospel Missions Ministry</title>
     <style>
         * {
             margin: 0;
@@ -18,11 +18,10 @@
         }
 
         header {
-            background: linear-gradient(rgba(44, 83, 100, 0.85), rgba(32, 58, 67, 0.95)), 
-                        url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 400"><defs><linearGradient id="sky" x1="0%" y1="0%" x2="0%" y2="100%"><stop offset="0%" style="stop-color:%232c5364;stop-opacity:1" /><stop offset="100%" style="stop-color:%23203a43;stop-opacity:1" /></linearGradient></defs><rect fill="url(%23sky)" width="1200" height="400"/><g opacity="0.3"><circle cx="200" cy="100" r="80" fill="%23fff"/><circle cx="800" cy="150" r="60" fill="%23fff"/><circle cx="400" cy="80" r="50" fill="%23fff"/><circle cx="1000" cy="120" r="70" fill="%23fff"/></g><path fill="%234a5f6b" d="M0,300 Q300,250 600,280 T1200,260 L1200,400 L0,400 Z"/><path fill="%23364854" d="M0,320 Q200,290 400,310 T800,300 Q1000,290 1200,310 L1200,400 L0,400 Z"/><path fill="%23f0a500" opacity="0.6" d="M500,120 L520,180 L580,180 L530,220 L550,280 L500,240 L450,280 L470,220 L420,180 L480,180 Z"/></g></svg>') center/cover;
+            background: #002b7f url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 400"><rect fill="%23002b7f" width="1200" height="400"/><g opacity="0.15"><circle cx="200" cy="100" r="80" fill="%23fff"/><circle cx="800" cy="150" r="60" fill="%23fff"/><circle cx="400" cy="80" r="50" fill="%23fff"/><circle cx="1000" cy="120" r="70" fill="%23fff"/></g><path fill="%23fcd116" opacity="0.1" d="M0,300 Q300,250 600,280 T1200,260 L1200,400 L0,400 Z"/><path fill="%23ffffff" opacity="0.1" d="M0,320 Q200,290 400,310 T800,300 Q1000,290 1200,310 L1200,400 L0,400 Z"/><path fill="%23fcd116" opacity="0.8" d="M500,120 L520,180 L580,180 L530,220 L550,280 L500,240 L450,280 L470,220 L420,180 L480,180 Z"/></g></svg>') center/cover;
             color: white;
             padding: 3rem 0;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            box-shadow: 0 4px 20px rgba(0, 43, 127, 0.4);
             position: relative;
         }
 
@@ -50,12 +49,13 @@
         }
 
         nav {
-            background: #203a43;
+            background: #002b7f;
+            backdrop-filter: blur(10px);
             padding: 1rem 0;
             position: sticky;
             top: 0;
             z-index: 100;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            box-shadow: 0 2px 15px rgba(0, 43, 127, 0.3);
         }
 
         nav ul {
@@ -74,12 +74,11 @@
         }
 
         nav a:hover {
-            color: #f0a500;
+            color: #fcd116;
         }
 
         .hero {
-            background: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)), 
-                        url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 600"><rect fill="%23456" width="1200" height="600"/><path fill="%23567" d="M0 300L50 320L100 310L150 330L200 320L250 340L300 330L350 350L400 340L450 360L500 350L550 370L600 360L650 380L700 370L750 390L800 380L850 400L900 390L950 410L1000 400L1050 420L1100 410L1150 430L1200 420V600H0Z"/></svg>') center/cover;
+            background: #ce1126 url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 600"><rect fill="%23ce1126" width="1200" height="600"/><path fill="%23002b7f" opacity="0.2" d="M0 300L50 320L100 310L150 330L200 320L250 340L300 330L350 350L400 340L450 360L500 350L550 370L600 360L650 380L700 370L750 390L800 380L850 400L900 390L950 410L1000 400L1050 420L1100 410L1150 430L1200 420V600H0Z"/></svg>') center/cover;
             color: white;
             padding: 6rem 0;
             text-align: center;
@@ -106,12 +105,12 @@
             text-align: center;
             font-size: 2.2rem;
             margin-bottom: 3rem;
-            color: #2c5364;
+            color: #002b7f;
             font-weight: 400;
         }
 
         .mission-statement {
-            background: #f8f9fa;
+            background: #fef9e7;
         }
 
         .mission-text {
@@ -135,15 +134,15 @@
 
         .mission-card {
             background: white;
-            border-radius: 8px;
+            border-radius: 12px;
             overflow: hidden;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            box-shadow: 0 4px 20px rgba(0, 43, 127, 0.1);
             transition: transform 0.3s, box-shadow 0.3s;
         }
 
         .mission-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 6px 20px rgba(0,0,0,0.15);
+            transform: translateY(-8px);
+            box-shadow: 0 8px 30px rgba(206, 17, 38, 0.2);
         }
 
         .mission-image {
@@ -158,11 +157,11 @@
         }
 
         .south-dakota-bg {
-            background: linear-gradient(135deg, #c94b4b 0%, #4b134f 100%);
+            background: #ce1126;
         }
 
         .romania-bg {
-            background: linear-gradient(135deg, #fdc830 0%, #f37335 100%);
+            background: #fcd116;
         }
 
         .mission-content {
@@ -172,7 +171,7 @@
         .mission-content h3 {
             font-size: 1.8rem;
             margin-bottom: 1rem;
-            color: #2c5364;
+            color: #002b7f;
         }
 
         .mission-content p {
@@ -182,22 +181,25 @@
 
         .btn {
             display: inline-block;
-            background: #2c5364;
+            background: #002b7f;
             color: white;
             padding: 0.8rem 2rem;
             text-decoration: none;
-            border-radius: 4px;
-            transition: background 0.3s;
+            border-radius: 8px;
+            transition: all 0.3s;
             margin-top: 1rem;
+            box-shadow: 0 4px 15px rgba(0, 43, 127, 0.3);
         }
 
         .btn:hover {
-            background: #1e3a47;
+            background: #001f5c;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0, 43, 127, 0.5);
         }
 
         .detail-section {
             display: none;
-            background: #f8f9fa;
+            background: #fff5f5;
         }
 
         .detail-section.active {
@@ -211,7 +213,7 @@
 
         .detail-content h4 {
             font-size: 1.5rem;
-            color: #2c5364;
+            color: #002b7f;
             margin: 2rem 0 1rem 0;
         }
 
@@ -230,13 +232,13 @@
         }
 
         .get-involved {
-            background: linear-gradient(135deg, #2c5364 0%, #203a43 100%);
-            color: white;
+            background: #e3f2fd;
+            color: #002b7f;
             text-align: center;
         }
 
         .get-involved .section-title {
-            color: white;
+            color: #002b7f;
         }
 
         .involvement-grid {
@@ -247,10 +249,18 @@
         }
 
         .involvement-card {
-            background: rgba(255,255,255,0.1);
+            background: rgba(0, 43, 127, 0.1);
             padding: 2rem;
-            border-radius: 8px;
+            border-radius: 12px;
             backdrop-filter: blur(10px);
+            border: 2px solid #002b7f;
+            transition: all 0.3s;
+        }
+
+        .involvement-card:hover {
+            background: rgba(0, 43, 127, 0.15);
+            transform: translateY(-5px);
+            border-color: #ce1126;
         }
 
         .involvement-card h4 {
@@ -259,7 +269,7 @@
         }
 
         footer {
-            background: #1a2a33;
+            background: #002b7f;
             color: white;
             text-align: center;
             padding: 2rem 0;
