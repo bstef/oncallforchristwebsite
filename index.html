@@ -15,364 +15,542 @@
     <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@300;400;600&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;1,8..60,400&display=swap" rel="stylesheet">
     <style>
         :root {
-            --ro-blue: #002B7F;
-            --ro-yellow: #FCD116;
-            --ro-red: #CE1126;
-            --bg-deep: #080a0f;
-            --bg-panel: #0d1117;
-            --bg-card: #111827;
-            --text-gold: #f1e7d0;
-            --text-dim: #8892b0;
-            --border-subtle: rgba(255, 255, 255, 0.06);
+            --blue:    #002B7F;
+            --yellow:  #FCD116;
+            --red:     #CE1126;
+            --bg:      #07090e;
+            --surface: #0d1117;
+            --card:    #111922;
+            --text:    #eee8d8;
+            --muted:   #7a8499;
+            --dim:     rgba(255,255,255,0.06);
         }
 
-        * { box-sizing: border-box; margin: 0; padding: 0; }
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+        html { scroll-behavior: smooth; }
 
         body {
             font-family: 'Inter', sans-serif;
-            background-color: var(--bg-deep);
-            color: var(--text-gold);
+            background: var(--bg);
+            color: var(--text);
             min-height: 100vh;
+            line-height: 1.6;
         }
 
-        /* ── TOP NAVIGATION ── */
-        nav {
+        /* ── FLAG BAR (very top) ── */
+        .flag-bar {
             position: fixed;
             top: 0; left: 0; right: 0;
-            height: 68px;
-            background: rgba(8, 10, 15, 0.94);
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
-            border-bottom: 1px solid var(--border-subtle);
+            height: 3px;
+            display: flex;
+            z-index: 1001;
+        }
+        .flag-bar div { flex: 1; }
+
+        /* ── NAV ── */
+        nav {
+            position: fixed;
+            top: 3px; left: 0; right: 0;
+            height: 64px;
+            background: rgba(7, 9, 14, 0.96);
+            backdrop-filter: blur(18px);
+            -webkit-backdrop-filter: blur(18px);
             display: flex;
             align-items: center;
             justify-content: space-between;
-            padding: 0 5%;
+            padding: 0 4.5rem;
             z-index: 1000;
+            border-bottom: 1px solid var(--dim);
         }
 
         .brand {
             font-family: 'Bebas Neue', sans-serif;
-            font-size: 1.55rem;
-            letter-spacing: 3px;
-            color: var(--ro-yellow);
+            font-size: 1.35rem;
+            letter-spacing: 4px;
+            color: var(--yellow);
             cursor: pointer;
-            line-height: 1.1;
             white-space: nowrap;
         }
 
         .nav-links {
             list-style: none;
             display: flex;
-            gap: 2.5rem;
+            align-items: center;
         }
 
         .nav-links a {
+            display: block;
+            padding: 0.4rem 1.1rem;
             text-decoration: none;
-            color: var(--text-dim);
+            color: var(--muted);
+            font-size: 0.72rem;
             font-weight: 600;
-            font-size: 0.75rem;
-            text-transform: uppercase;
             letter-spacing: 1.5px;
-            transition: color 0.25s;
+            text-transform: uppercase;
             cursor: pointer;
+            transition: color 0.2s;
+            position: relative;
         }
 
-        .nav-links a:hover { color: var(--ro-yellow); }
-
-        .nav-est {
-            font-size: 0.65rem;
-            color: var(--text-dim);
-            letter-spacing: 1.5px;
-            text-transform: uppercase;
-            white-space: nowrap;
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -1px; left: 1.1rem; right: 1.1rem;
+            height: 2px;
+            background: var(--yellow);
+            transform: scaleX(0);
+            transition: transform 0.22s;
+            transform-origin: left;
         }
 
-        /* ── MAIN ── */
-        main { padding-top: 68px; }
+        .nav-links a:hover { color: #fff; }
+        .nav-links a:hover::after { transform: scaleX(1); }
+
+        .menu-btn {
+            display: none;
+            background: none;
+            border: 1px solid var(--dim);
+            color: var(--text);
+            font-size: 1.1rem;
+            cursor: pointer;
+            padding: 0.45rem 0.65rem;
+            line-height: 1;
+        }
+
+        /* ── MAIN / SECTION ── */
+        main { padding-top: 67px; }
 
         section {
             display: none;
-            animation: fadeIn 0.45s ease-out;
+            animation: enter 0.42s ease-out;
         }
-
         section.active { display: block; }
 
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(18px); }
+        @keyframes enter {
+            from { opacity: 0; transform: translateY(22px); }
             to   { opacity: 1; transform: translateY(0); }
         }
 
-        /* ── HERO ── */
+        /* ═══════════════════════════════
+           HERO
+        ═══════════════════════════════ */
         .hero {
-            min-height: calc(100vh - 68px);
-            display: flex;
-            align-items: center;
-            padding: 6rem 5% 5rem;
+            display: grid;
+            grid-template-columns: 1fr 420px;
+            min-height: calc(100vh - 67px);
             position: relative;
             overflow: hidden;
         }
 
-        .hero-bg-bars {
+        /* video background */
+        .hero-video {
             position: absolute;
-            top: 0; right: 0;
-            height: 100%;
-            width: 260px;
-            display: flex;
-            opacity: 0.12;
+            inset: 0;
+            width: 100%; height: 100%;
+            object-fit: cover;
+            object-position: center;
+            opacity: 0.22;
             pointer-events: none;
+            z-index: 0;
         }
 
-        .hero-bg-bars div { flex: 1; }
-
-        .hero-content {
+        .hero-left {
+            padding: 7rem 5% 5rem 6%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            border-right: 1px solid var(--dim);
             position: relative;
             z-index: 1;
-            max-width: 780px;
+            background: linear-gradient(to right, rgba(7,9,14,0.82) 60%, transparent 100%);
         }
 
-        .eyebrow {
-            font-size: 0.72rem;
-            font-weight: 600;
-            letter-spacing: 3px;
-            text-transform: uppercase;
-            color: var(--ro-red);
-            margin-bottom: 1.75rem;
-            display: flex;
+        .live-pill {
+            display: inline-flex;
             align-items: center;
-            gap: 0.75rem;
+            gap: 0.6rem;
+            font-size: 0.68rem;
+            font-weight: 600;
+            letter-spacing: 2.5px;
+            text-transform: uppercase;
+            color: var(--red);
+            margin-bottom: 2rem;
         }
 
-        .eyebrow::before {
-            content: '';
-            display: inline-block;
-            width: 28px;
-            height: 2px;
-            background: var(--ro-red);
-            flex-shrink: 0;
+        .live-dot {
+            width: 7px; height: 7px;
+            border-radius: 50%;
+            background: var(--red);
+            animation: blink 2.2s ease-in-out infinite;
+        }
+
+        @keyframes blink {
+            0%, 100% { opacity: 1; transform: scale(1); }
+            50%       { opacity: 0.25; transform: scale(0.7); }
         }
 
         h1 {
             font-family: 'Bebas Neue', sans-serif;
-            font-size: clamp(4.5rem, 9vw, 8rem);
-            line-height: 0.88;
-            color: #fff;
-            margin-bottom: 2.5rem;
+            font-size: clamp(4.5rem, 9.5vw, 9.5rem);
+            line-height: 0.84;
             letter-spacing: 2px;
+            color: #fff;
+            margin-bottom: 0;
+        }
+
+        .hero-stats {
+            display: flex;
+            gap: 3rem;
+            border-top: 1px solid var(--dim);
+            padding-top: 2.25rem;
+            margin-top: auto;
+            padding-top: 2rem;
+        }
+
+        .stat label {
+            display: block;
+            font-size: 0.62rem;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: var(--muted);
+            margin-bottom: 0.3rem;
+        }
+
+        .stat span {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 1.3rem;
+            letter-spacing: 2px;
+            color: var(--yellow);
+        }
+
+        /* right panel */
+        .hero-right {
+            background: rgba(13, 17, 23, 0.88);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            padding: 7rem 3.5rem 5rem 4rem;
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
+            backdrop-filter: blur(4px);
+            -webkit-backdrop-filter: blur(4px);
+        }
+
+        .side-stripe {
+            position: absolute;
+            left: 0; top: 0; bottom: 0;
+            width: 4px;
+            display: flex;
+            flex-direction: column;
+        }
+        .side-stripe div { flex: 1; }
+
+        .quote-eyebrow {
+            font-size: 0.62rem;
+            letter-spacing: 2.5px;
+            text-transform: uppercase;
+            color: var(--muted);
+            margin-bottom: 1.75rem;
         }
 
         .mission-text {
             font-family: 'Source Serif 4', serif;
-            font-size: 1.2rem;
-            line-height: 1.75;
-            color: #c8c8c8;
-            max-width: 700px;
-            padding-left: 1.5rem;
-            border-left: 3px solid var(--ro-red);
+            font-size: 1.1rem;
+            line-height: 1.85;
+            color: #c0c0c0;
             font-style: italic;
+            border-left: 2px solid var(--red);
+            padding-left: 1.5rem;
         }
 
-        /* ── FLAG RULE ── */
-        .flag-rule {
-            height: 5px;
-            display: flex;
-        }
-
-        .flag-rule div { flex: 1; }
-
-        /* ── SECTION INNER ── */
-        .section-inner {
-            padding: 6rem 5%;
-            max-width: 1300px;
+        /* ═══════════════════════════════
+           SHARED SECTION CHROME
+        ═══════════════════════════════ */
+        .wrap {
+            padding: 7rem 6%;
+            max-width: 1280px;
             margin: 0 auto;
         }
 
-        .section-header { margin-bottom: 3.5rem; }
+        .section-no {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 0.82rem;
+            letter-spacing: 3px;
+            color: var(--muted);
+            margin-bottom: 0.6rem;
+        }
 
-        .section-tag {
+        .pill {
             display: inline-block;
-            font-size: 0.68rem;
+            background: rgba(252, 209, 22, 0.1);
+            border: 1px solid rgba(252, 209, 22, 0.25);
+            color: var(--yellow);
+            font-size: 0.66rem;
             font-weight: 700;
             letter-spacing: 2.5px;
             text-transform: uppercase;
-            color: var(--ro-yellow);
-            border: 1px solid rgba(252, 209, 22, 0.35);
-            padding: 0.3rem 0.75rem;
-            margin-bottom: 1.25rem;
+            padding: 0.3rem 0.85rem;
+            margin-bottom: 1.5rem;
         }
 
         h2 {
             font-family: 'Bebas Neue', sans-serif;
-            font-size: clamp(2.8rem, 5vw, 4.5rem);
-            color: #fff;
-            line-height: 0.95;
-            margin-bottom: 1.5rem;
+            font-size: clamp(3rem, 5.5vw, 5.5rem);
+            line-height: 0.88;
             letter-spacing: 1px;
+            color: #fff;
+            margin-bottom: 1.75rem;
         }
 
-        .section-lead {
+        .lead {
             font-size: 1.05rem;
-            color: var(--text-dim);
-            max-width: 620px;
-            line-height: 1.75;
+            color: var(--muted);
+            max-width: 600px;
+            line-height: 1.8;
         }
+        .lead strong { color: var(--text); font-weight: 600; }
 
-        .section-lead strong { color: var(--text-gold); }
-
-        /* ── CARDS ── */
-        .card-grid {
+        /* ═══════════════════════════════
+           CARDS  (1-px gap mosaic)
+        ═══════════════════════════════ */
+        .mosaic {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 1.25rem;
-            margin-top: 3rem;
+            grid-template-columns: repeat(auto-fit, minmax(270px, 1fr));
+            gap: 1px;
+            background: var(--dim);
+            border: 1px solid var(--dim);
+            margin-top: 4rem;
         }
 
         .card {
-            background: var(--bg-card);
-            border: 1px solid var(--border-subtle);
-            padding: 2.5rem 2.25rem;
+            background: var(--card);
+            padding: 2.75rem 2.5rem;
             position: relative;
-            transition: transform 0.3s, border-color 0.3s;
-            overflow: hidden;
+            transition: background 0.25s;
         }
+        .card:hover { background: #161f2c; }
 
-        .card::after {
-            content: '';
-            position: absolute;
-            top: 0; left: 0; right: 0;
+        .card-stripe {
+            width: 32px;
             height: 3px;
+            margin-bottom: 1.75rem;
         }
-
-        .card.accent-yellow::after { background: var(--ro-yellow); }
-        .card.accent-red::after    { background: var(--ro-red); }
-        .card.accent-blue::after   { background: var(--ro-blue); }
-
-        .card:hover { transform: translateY(-5px); border-color: rgba(255,255,255,0.12); }
-
-        .card-label {
-            font-size: 0.68rem;
-            font-weight: 700;
-            letter-spacing: 2px;
-            text-transform: uppercase;
-            margin-bottom: 1rem;
-        }
-
-        .card-label.yellow { color: var(--ro-yellow); }
-        .card-label.red    { color: var(--ro-red); }
-        .card-label.blue   { color: #5b8cff; }
 
         .card h3 {
             font-family: 'Bebas Neue', sans-serif;
-            font-size: 1.7rem;
+            font-size: 1.75rem;
             letter-spacing: 1px;
             color: #fff;
             margin-bottom: 0.75rem;
         }
 
         .card p {
-            color: var(--text-dim);
-            line-height: 1.7;
+            color: var(--muted);
             font-size: 0.9rem;
+            line-height: 1.78;
         }
 
-        /* ── GET INVOLVED ── */
-        .involve-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-            gap: 1.25rem;
-            margin-top: 3rem;
-        }
-
-        .involve-card {
-            background: var(--bg-card);
-            border: 1px solid var(--border-subtle);
-            padding: 2.75rem 2.25rem;
-            transition: border-color 0.3s, transform 0.3s;
-        }
-
-        .involve-card:hover {
-            border-color: rgba(252, 209, 22, 0.4);
-            transform: translateY(-4px);
-        }
-
-        .involve-card h3 {
+        .card-no {
+            position: absolute;
+            top: 2.75rem;
+            right: 2.5rem;
             font-family: 'Bebas Neue', sans-serif;
-            font-size: 2.2rem;
-            color: var(--ro-yellow);
+            font-size: 0.95rem;
             letter-spacing: 2px;
-            margin-bottom: 0.75rem;
+            color: rgba(255,255,255,0.08);
         }
 
-        .involve-card p {
-            color: var(--text-dim);
-            font-size: 0.9rem;
-            line-height: 1.7;
+        /* ═══════════════════════════════
+           SPLIT LAYOUT (Romania)
+        ═══════════════════════════════ */
+        .split {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            min-height: 72vh;
         }
 
-        /* ── SUPPORT CTA ── */
-        .support-cta {
+        .split-left {
+            padding: 7rem 5% 7rem 6%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            border-right: 1px solid var(--dim);
+        }
+
+        .split-right {
+            background: var(--surface);
+            padding: 7rem 6% 7rem 5%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .ghost-text {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: clamp(7rem, 14vw, 16rem);
+            line-height: 0.8;
+            color: rgba(255,255,255,0.022);
+            position: absolute;
+            right: 3%;
+            bottom: 2rem;
+            letter-spacing: -3px;
+            pointer-events: none;
+            user-select: none;
+        }
+
+        /* ═══════════════════════════════
+           GET INVOLVED
+        ═══════════════════════════════ */
+        .action-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1px;
+            background: var(--dim);
+            border: 1px solid var(--dim);
             margin-top: 4rem;
-            background: var(--ro-red);
-            padding: 2.75rem 3rem;
+        }
+
+        .action-card {
+            background: var(--card);
+            padding: 3.5rem 3rem;
+            transition: background 0.25s;
+        }
+        .action-card:hover { background: #161f2c; }
+
+        .action-card h3 {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 3rem;
+            letter-spacing: 3px;
+            color: var(--yellow);
+            margin-bottom: 0.85rem;
+        }
+
+        .action-card p {
+            color: var(--muted);
+            font-size: 0.9rem;
+            line-height: 1.8;
+        }
+
+        /* ═══════════════════════════════
+           SUPPORT CTA
+        ═══════════════════════════════ */
+        .cta {
+            background: var(--red);
             display: flex;
             align-items: center;
             justify-content: space-between;
+            padding: 3rem 3.5rem;
+            margin-top: 4rem;
             cursor: pointer;
-            transition: background 0.3s;
+            transition: background 0.25s;
         }
+        .cta:hover { background: #ac0e1c; }
 
-        .support-cta:hover { background: #a80f1e; }
-
-        .support-cta-text {
+        .cta-label {
             font-family: 'Bebas Neue', sans-serif;
-            font-size: clamp(1.8rem, 3vw, 2.6rem);
+            font-size: clamp(1.8rem, 3.5vw, 2.8rem);
             letter-spacing: 3px;
             color: #fff;
         }
 
-        .support-cta-arrow {
-            font-size: 2rem;
-            color: rgba(255,255,255,0.75);
+        .cta-circle {
+            width: 52px; height: 52px;
+            border-radius: 50%;
+            border: 2px solid rgba(255,255,255,0.45);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #fff;
+            font-size: 1.3rem;
+            flex-shrink: 0;
+            transition: transform 0.25s, border-color 0.25s;
         }
+        .cta:hover .cta-circle { transform: translateX(7px); border-color: #fff; }
 
-        /* ── HOME QUICK CARDS ── */
-        .home-cards {
-            padding: 0 5% 6rem;
-            max-width: 1300px;
-            margin: 0 auto;
-        }
+        /* ═══════════════════════════════
+           MOBILE
+        ═══════════════════════════════ */
+        @media (max-width: 980px) {
+            nav { padding: 0 2.5rem; }
 
-        /* ── MOBILE ── */
-        @media (max-width: 900px) {
-            .nav-links { gap: 1.5rem; }
-            .nav-est { display: none; }
-        }
-
-        @media (max-width: 680px) {
-            nav { padding: 0 4%; }
             .nav-links {
                 display: none;
+                position: fixed;
+                top: 67px; left: 0; right: 0;
+                background: rgba(7, 9, 14, 0.98);
+                backdrop-filter: blur(18px);
+                -webkit-backdrop-filter: blur(18px);
+                flex-direction: column;
+                align-items: stretch;
+                padding: 0.5rem 0 1.5rem;
+                border-bottom: 1px solid var(--dim);
             }
-            .hero { padding: 4rem 4% 4rem; min-height: auto; }
-            .section-inner { padding: 4rem 4%; }
-            .home-cards { padding: 0 4% 4rem; }
-            .support-cta { flex-direction: column; gap: 1rem; padding: 2.25rem 1.75rem; text-align: center; }
+            .nav-links.open { display: flex; }
+            .nav-links a { padding: 0.9rem 2.5rem; font-size: 0.8rem; }
+            .nav-links a::after { display: none; }
+            .menu-btn { display: block; }
+
+            .hero {
+                grid-template-columns: 1fr;
+                min-height: auto;
+            }
+            .hero-left {
+                padding: 5rem 5% 4rem;
+                border-right: none;
+                border-bottom: 1px solid var(--dim);
+                background: linear-gradient(to bottom, rgba(7,9,14,0.85) 70%, transparent 100%);
+            }
+            .hero-right {
+                padding: 4rem 5%;
+                background: rgba(13,17,23,0.88);
+            }
+            .hero-stats { gap: 2rem; flex-wrap: wrap; }
+
+            .split {
+                grid-template-columns: 1fr;
+                min-height: auto;
+            }
+            .split-left {
+                padding: 5rem 5%;
+                border-right: none;
+                border-bottom: 1px solid var(--dim);
+            }
+            .split-right { padding: 5rem 5%; }
+
+            .action-grid { grid-template-columns: 1fr; }
+            .wrap { padding: 5rem 5%; }
+            .cta { padding: 2.5rem 2rem; }
+        }
+
+        @media (max-width: 500px) {
             h1 { font-size: 4rem; }
+            .hero-stats { gap: 1.5rem; }
+            .cta { flex-direction: column; gap: 1.5rem; }
         }
     </style>
 </head>
 <body>
 
+    <!-- Romanian flag stripe at page top -->
+    <div class="flag-bar">
+        <div style="background:var(--blue)"></div>
+        <div style="background:var(--yellow)"></div>
+        <div style="background:var(--red)"></div>
+    </div>
+
     <nav>
-        <div class="brand" onclick="showSection('home')">ON CALL<br>FOR CHRIST</div>
-        <ul class="nav-links">
-            <li><a onclick="showSection('home')">Introduction</a></li>
-            <li><a onclick="showSection('romania')">Romania Heritage</a></li>
-            <li><a onclick="showSection('southdakota')">Rosebud Presence</a></li>
-            <li><a onclick="showSection('highlights')">Photo Highlights</a></li>
-            <li><a onclick="showSection('involved')">Get Involved</a></li>
+        <div class="brand" onclick="nav('home')">ON CALL FOR CHRIST</div>
+        <button class="menu-btn" onclick="toggleMenu()" aria-label="Menu">&#9776;</button>
+        <ul class="nav-links" id="navMenu">
+            <li><a onclick="nav('home')">Introduction</a></li>
+            <li><a onclick="nav('romania')">Romania Heritage</a></li>
+            <li><a onclick="nav('southdakota')">Rosebud Presence</a></li>
+            <li><a onclick="nav('highlights')">Photo Highlights</a></li>
+            <li><a onclick="nav('involved')">Get Involved</a></li>
         </ul>
-        <div class="nav-est">Est. 2002 &middot; Romania &amp; South Dakota</div>
     </nav>
 
     <main>
@@ -380,34 +558,56 @@
         <!-- ── INTRODUCTION ── -->
         <section id="home" class="active">
             <div class="hero">
-                <div class="hero-bg-bars">
-                    <div style="background: var(--ro-blue);"></div>
-                    <div style="background: var(--ro-yellow);"></div>
-                    <div style="background: var(--ro-red);"></div>
-                </div>
-                <div class="hero-content">
-                    <p class="eyebrow">Gospel Ministry &middot; Est. 2002</p>
+                <video class="hero-video" autoplay muted loop playsinline>
+                    <source src="A_short_10_sec_video_for_a_website_that_focus_on_r_c936690ec5.mp4" type="video/mp4">
+                </video>
+                <div class="hero-left">
+                    <div class="live-pill">
+                        <span class="live-dot"></span>
+                        Gospel Ministry Active
+                    </div>
                     <h1>AMBASSADORS<br>FOR CHRIST</h1>
+                    <div class="hero-stats">
+                        <div class="stat">
+                            <label>Founded</label>
+                            <span>2002</span>
+                        </div>
+                        <div class="stat">
+                            <label>Fields</label>
+                            <span>Romania &amp; S.&nbsp;Dakota</span>
+                        </div>
+                        <div class="stat">
+                            <label>Focus</label>
+                            <span>Gospel &amp; Discipleship</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="hero-right">
+                    <div class="side-stripe">
+                        <div style="background:var(--blue)"></div>
+                        <div style="background:var(--yellow)"></div>
+                        <div style="background:var(--red)"></div>
+                    </div>
+                    <p class="quote-eyebrow">Our Mission</p>
                     <p class="mission-text">
                         "United to share the Gospel with the lost, to disciple followers of Christ, and to train believers in living a Gospel-centered life. Our intention is to be ambassadors for Christ, calling people to repentance and faith in Him."
                     </p>
                 </div>
             </div>
 
-            <div class="flag-rule">
-                <div style="background: var(--ro-blue);"></div>
-                <div style="background: var(--ro-yellow);"></div>
-                <div style="background: var(--ro-red);"></div>
-            </div>
-
-            <div class="home-cards">
-                <div class="card-grid">
-                    <div class="card accent-yellow">
-                        <div class="card-label yellow">01. Mission</div>
+            <div class="wrap" style="padding-top:4.5rem; padding-bottom:5rem;">
+                <div class="mosaic">
+                    <div class="card">
+                        <div class="card-stripe" style="background:var(--yellow)"></div>
+                        <span class="card-no">01</span>
+                        <h3>Mission</h3>
                         <p>Developing relationships with the youth of Okreek and Parmelee to reach their families with the Gospel.</p>
                     </div>
-                    <div class="card accent-red">
-                        <div class="card-label red">02. Training</div>
+                    <div class="card">
+                        <div class="card-stripe" style="background:var(--red)"></div>
+                        <span class="card-no">02</span>
+                        <h3>Training</h3>
                         <p>Equipping the team for service and enabling them to use their gifts for the glory of God.</p>
                     </div>
                 </div>
@@ -416,16 +616,22 @@
 
         <!-- ── ROMANIA HERITAGE ── -->
         <section id="romania">
-            <div class="section-inner">
-                <div class="section-header">
-                    <span class="section-tag">Heritage</span>
-                    <h2>THE ROMANIA HERITAGE</h2>
-                    <p class="section-lead">Our ministry is rooted in the training and discipline of Gospel-centered service found in Romania. Here, we equip our team to be sent into the world.</p>
+            <div class="split">
+                <div class="split-left">
+                    <div class="section-no">01 / Heritage</div>
+                    <span class="pill">Romania</span>
+                    <h2>THE ROMANIA<br>HERITAGE</h2>
+                    <p class="lead">Our ministry is rooted in the training and discipline of Gospel-centered service found in Romania. Here, we equip our team to be sent into the world.</p>
                 </div>
-                <div class="card-grid">
-                    <div class="card accent-blue">
-                        <h3>Preparation</h3>
-                        <p>Focusing on rigorous Gospel study and practical training to sustain a committed presence in cross-cultural fields.</p>
+
+                <div class="split-right">
+                    <span class="ghost-text">RO</span>
+                    <div class="mosaic" style="margin-top:0; background:transparent; border:none; gap:0;">
+                        <div class="card" style="background:rgba(255,255,255,0.03);">
+                            <div class="card-stripe" style="background:var(--blue)"></div>
+                            <h3>Preparation</h3>
+                            <p>Focusing on rigorous Gospel study and practical training to sustain a committed presence in cross-cultural fields.</p>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -433,18 +639,21 @@
 
         <!-- ── ROSEBUD PRESENCE ── -->
         <section id="southdakota">
-            <div class="section-inner">
-                <div class="section-header">
-                    <span class="section-tag">Field</span>
-                    <h2>THE ROSEBUD PRESENCE</h2>
-                    <p class="section-lead">Focusing on the communities of <strong>Okreek</strong> and <strong>Parmelee</strong>, we are building a foundation of faith on the Rosebud Indian Reservation.</p>
-                </div>
-                <div class="card-grid">
-                    <div class="card accent-red">
+            <div class="wrap">
+                <div class="section-no">02 / Field</div>
+                <span class="pill">South Dakota</span>
+                <h2>THE ROSEBUD<br>PRESENCE</h2>
+                <p class="lead">Focusing on the communities of <strong>Okreek</strong> and <strong>Parmelee</strong>, we are building a foundation of faith on the Rosebud Indian Reservation.</p>
+                <div class="mosaic">
+                    <div class="card">
+                        <div class="card-stripe" style="background:var(--red)"></div>
+                        <span class="card-no">01</span>
                         <h3>Okreek Outreach</h3>
                         <p>Youth-focused ministry designed to provide a stable, Christ-centered presence in the community.</p>
                     </div>
-                    <div class="card accent-red">
+                    <div class="card">
+                        <div class="card-stripe" style="background:var(--red)"></div>
+                        <span class="card-no">02</span>
                         <h3>Parmelee Growth</h3>
                         <p>Building deep relationships with families and incorporating them into a local fellowship of believers.</p>
                     </div>
@@ -454,22 +663,27 @@
 
         <!-- ── PHOTO HIGHLIGHTS ── -->
         <section id="highlights">
-            <div class="section-inner">
-                <div class="section-header">
-                    <span class="section-tag">Gallery</span>
-                    <h2>PHOTO HIGHLIGHTS</h2>
-                    <p class="section-lead">A glimpse into the relationships, training, and Gospel outreach that define our ministry in South Dakota and Romania.</p>
-                </div>
-                <div class="card-grid">
-                    <div class="card accent-yellow">
+            <div class="wrap">
+                <div class="section-no">03 / Gallery</div>
+                <span class="pill">Photo Highlights</span>
+                <h2>PHOTO<br>HIGHLIGHTS</h2>
+                <p class="lead">A glimpse into the relationships, training, and Gospel outreach that define our ministry in South Dakota and Romania.</p>
+                <div class="mosaic">
+                    <div class="card">
+                        <div class="card-stripe" style="background:var(--yellow)"></div>
+                        <span class="card-no">01</span>
                         <h3>Reservation Outreach</h3>
                         <p>Moments from youth mentorship, community meals, and Gospel conversations on the Rosebud Reservation.</p>
                     </div>
-                    <div class="card accent-blue">
+                    <div class="card">
+                        <div class="card-stripe" style="background:var(--blue)"></div>
+                        <span class="card-no">02</span>
                         <h3>Romania Training</h3>
                         <p>Snapshots of discipleship, ministry preparation, and local partnerships throughout Romania.</p>
                     </div>
-                    <div class="card accent-red">
+                    <div class="card">
+                        <div class="card-stripe" style="background:var(--red)"></div>
+                        <span class="card-no">03</span>
                         <h3>Team on Mission</h3>
                         <p>Highlights from the people serving faithfully across cultures and communities.</p>
                     </div>
@@ -479,24 +693,23 @@
 
         <!-- ── GET INVOLVED ── -->
         <section id="involved">
-            <div class="section-inner">
-                <div class="section-header">
-                    <span class="section-tag">Participate</span>
-                    <h2>GET INVOLVED</h2>
-                </div>
-                <div class="involve-grid">
-                    <div class="involve-card">
+            <div class="wrap">
+                <div class="section-no">04 / Participate</div>
+                <span class="pill">Get Involved</span>
+                <h2>GET<br>INVOLVED</h2>
+                <div class="action-grid">
+                    <div class="action-card">
                         <h3>PRAY</h3>
                         <p>Receive regular updates to pray for the families of the Rosebud Reservation.</p>
                     </div>
-                    <div class="involve-card">
+                    <div class="action-card">
                         <h3>SERVE</h3>
                         <p>Learn how to join our training program in Romania or serve in South Dakota.</p>
                     </div>
                 </div>
-                <div class="support-cta" onclick="alert('Proceeding to secure giving portal...')">
-                    <span class="support-cta-text">SUPPORT THE MISSION</span>
-                    <span class="support-cta-arrow">&rarr;</span>
+                <div class="cta" onclick="alert('Proceeding to secure giving portal...')">
+                    <span class="cta-label">SUPPORT THE MISSION</span>
+                    <div class="cta-circle">&#8594;</div>
                 </div>
             </div>
         </section>
@@ -504,10 +717,15 @@
     </main>
 
     <script>
-        function showSection(id) {
+        function nav(id) {
             document.querySelectorAll('section').forEach(s => s.classList.remove('active'));
             document.getElementById(id).classList.add('active');
             window.scrollTo(0, 0);
+            document.getElementById('navMenu').classList.remove('open');
+        }
+
+        function toggleMenu() {
+            document.getElementById('navMenu').classList.toggle('open');
         }
     </script>
 </body>
