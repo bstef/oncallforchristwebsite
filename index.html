@@ -138,6 +138,20 @@
             display: grid;
             grid-template-columns: 1fr 420px;
             min-height: calc(100vh - 67px);
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* video background */
+        .hero-video {
+            position: absolute;
+            inset: 0;
+            width: 100%; height: 100%;
+            object-fit: cover;
+            object-position: center;
+            opacity: 0.22;
+            pointer-events: none;
+            z-index: 0;
         }
 
         .hero-left {
@@ -146,6 +160,9 @@
             flex-direction: column;
             justify-content: center;
             border-right: 1px solid var(--dim);
+            position: relative;
+            z-index: 1;
+            background: linear-gradient(to right, rgba(7,9,14,0.82) 60%, transparent 100%);
         }
 
         .live-pill {
@@ -208,13 +225,16 @@
 
         /* right panel */
         .hero-right {
-            background: var(--surface);
+            background: rgba(13, 17, 23, 0.88);
             display: flex;
             flex-direction: column;
             justify-content: center;
             padding: 7rem 3.5rem 5rem 4rem;
             position: relative;
             overflow: hidden;
+            z-index: 1;
+            backdrop-filter: blur(4px);
+            -webkit-backdrop-filter: blur(4px);
         }
 
         .side-stripe {
@@ -481,8 +501,12 @@
                 padding: 5rem 5% 4rem;
                 border-right: none;
                 border-bottom: 1px solid var(--dim);
+                background: linear-gradient(to bottom, rgba(7,9,14,0.85) 70%, transparent 100%);
             }
-            .hero-right { padding: 4rem 5%; }
+            .hero-right {
+                padding: 4rem 5%;
+                background: rgba(13,17,23,0.88);
+            }
             .hero-stats { gap: 2rem; flex-wrap: wrap; }
 
             .split {
@@ -534,6 +558,9 @@
         <!-- ── INTRODUCTION ── -->
         <section id="home" class="active">
             <div class="hero">
+                <video class="hero-video" autoplay muted loop playsinline>
+                    <source src="A_short_10_sec_video_for_a_website_that_focus_on_r_c936690ec5.mp4" type="video/mp4">
+                </video>
                 <div class="hero-left">
                     <div class="live-pill">
                         <span class="live-dot"></span>
